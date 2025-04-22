@@ -43,9 +43,11 @@ export default function Schedule() {
             personal information protected while allowing you easy access to your payroll records. Whether 
             you need to review your latest payroll or track your payment history.
           </p>
-          <button className="bg-teal-700 text-white px-8 py-2 mt-6 rounded hover:bg-teal-600">
-            GO TO PORTAL
-          </button>
+          <a href="https://myapps.paychex.com/landing_remote/login.do?lang=en#?mode=employee&app=DASHBOARD_EMP&clients=004UWBZQLERWC7BO4OSM">
+            <button className="bg-teal-700 text-white px-8 py-2 mt-6 rounded hover:bg-teal-600">
+              GO TO PORTAL
+            </button>
+          </a>
         </div>
       </section>
       
