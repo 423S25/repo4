@@ -1,35 +1,23 @@
 // pages/api/search.js
-
-export default function handler(req, res) {
-  res.status(200).json({ message: "This API route is currently disabled." });
-}
-
-
-/*
-import { google } from "googleapis";
+import { listFilesInFolder } from "../../lib/googleDrive";
 
 export default async function handler(req, res) {
   const { query } = req.query;
-  if (!query) {
-    return res.status(400).json({ error: "Missing search query parameter" });
-  }
 
-  const folderId = "1Gnb8MTiUc9r9L1NfEMOCbzb5NG6YlhXu";
+  console.log("Searching for:", query);
 
   try {
-    const drive = google.drive({
-      version: "v3",
-      auth: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-    });
+    // Use our helper function to search within the specific folder
+    const files = await listFilesInFolder(query);
+    console.log("Search results:", files?.length || 0);
 
-    const response = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and name contains '${query}'&key=${process.env.GOOGLE_API_KEY}`
-    );
-
-    res.status(200).json({ files: response.data.files });
+    // Return the search results
+    res.status(200).json({ files });
   } catch (error) {
     console.error("Drive API error:", error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: error.message,
+      details: error.errors ? error.errors : null
+    });
   }
 }
-*/

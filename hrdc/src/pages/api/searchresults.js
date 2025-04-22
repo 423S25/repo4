@@ -157,17 +157,6 @@ export default function SearchResults() {
                   </span>
                   {/* full button and dropdown */}
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <button
-                      onClick={(e) => openFullWindow(file, e)}
-                      style={{
-                        marginRight: "8px",
-                        padding: "2px 6px",
-                        fontSize: "0.8em",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Full
-                    </button>
                     <div onClick={() => toggleFile(file)} style={{ cursor: "pointer" }}>
                       {expandedFiles[file.id] ? (
                         <ChevronUp className="w-4 h-4" strokeWidth={1.5} />
