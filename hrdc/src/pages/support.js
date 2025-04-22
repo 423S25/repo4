@@ -37,19 +37,25 @@ export default function Support() {
       <div className="flex flex-col items-center w-full">
         <Navbar/>
         {/* Hero Section */}
-        <div className="relative w-full h-90">
+        <div className="relative w-full h-96">
           {/* Background Image */}
           <Image
-              src="/tech.png" // Make sure the file is inside the "public" folder
+              src="/tech.png" 
               alt="Support"
-              fill // replaces layout="fill"
+              fill 
               className="object-cover"
               priority
           />
 
           {/* Overlay */}
           <div className="absolute inset-0  flex items-center justify-center">
-            <h1 className="text-white text-4xl font-bold">SUPPORT</h1>
+            <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
+                <h1 className="text-[44px] font-bold text-black"
+                    style={{fontFamily: '"Gotham", Helvetica'}}
+                >
+                  SUPPORT
+                </h1>
+              </div>
           </div>
         </div>
 

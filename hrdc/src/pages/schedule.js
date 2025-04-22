@@ -1,150 +1,79 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import Navbar from "../components/Navbar";
 
 export default function Schedule() {
-  const [date, setDate] = useState(new Date());
-  const [events, setEvents] = useState({});
-  const [status, setStatus] = useState(null);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-  
-    console.log("Submitting form data:", data); // Debugging Step
-    try {
-      const response = await fetch("/api/sendTicket", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-  
-      console.log("API Response Status:", response.status); // Debugging Step 2
-      const responseData = await response.json();
-      console.log("API Response Data:", responseData); // Debugging Step 3
-
-      
-      if (response.ok) {
-        setStatus("success");
-        event.target.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
-      console.error("Error submitting ticket:", error);
-      setStatus("error");
-    }
-  };
-
-  const handleDayClick = (value) => {
-    const eventTitle = prompt("Enter event name:");
-    if (eventTitle) {
-      setEvents((prev) => ({
-        ...prev,
-        [value.toDateString()]: eventTitle,
-      }));
-    }
-  };
-
   return (
-      <div className="bg-gray-100 min-h-screen">
-        <Navbar/>
-        <section className="relative w-full h-[300px] flex items-center justify-center bg-gray-800">
-          <div className="absolute inset-0">
-            <Image
-                src="/team.png"
-                alt="Team"
-                layout="fill"
-                objectFit="cover"
-                className="w-full h-full"
-            />
+    <div className="bg-white min-h-screen flex flex-col">
+      <Navbar />
+      
+      {/* Hero Banner */}
+      <div className="relative w-full h-96">
+        {/* Background Image */}
+        <Image
+            src="/team.png"
+            alt="Schedule"
+            fill
+            className="object-cover"
+            priority
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
+            <h1 className="text-[44px] font-bold text-black"
+                style={{fontFamily: '"Gotham", Helvetica'}}
+            >
+              SCHEDULE
+            </h1>
           </div>
-          <h1 className="relative z-10 text-4xl font-bold text-white">SCHEDULE</h1>
-        </section>
-
-        <section className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-center text-xl font-semibold mb-4">Select a Date</h2>
-          <div className="flex justify-center">
-            <Calendar
-                onChange={setDate}
-                value={date}
-                onClickDay={handleDayClick}
-                tileContent={({date, view}) =>
-                    view === "month" && events[date.toDateString()] ? (
-                        <p className="text-xs bg-green-200 text-green-800 p-1 mt-1 rounded">
-                          {events[date.toDateString()]}
-                        </p>
-                    ) : null
-                }
-            />
-          </div>
-        </section>
-
-        <section className="max-w-4xl mx-auto mt-12 p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold text-green-700 mb-4">REQUESTING HOURS/TIMEOFF</h2>
-          <p className="text-sm text-gray-600 mb-4">
-            When submitting a time-off request, please note that if it is made with short notice, it may not be
-            approved.
-          </p>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium">REQUEST TYPE</label>
-                <select name="requestType" className="w-full mt-1 p-2 border rounded">
-                  <option>Time-on/Time-off</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium">DATE(S)</label>
-                <input name="dates" type="text" placeholder="mm/dd/yyyy" className="w-full mt-1 p-2 border rounded"/>
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium">REASON</label>
-              <textarea name="reason" className="w-full mt-1 p-2 border rounded" rows="3"></textarea>
-            </div>
-            <button type="submit" className="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-600 w-full">
-              SUBMIT REQUEST
-            </button>
-          </form>
-
-          {status === "success" && (
-              <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
-                Your request has been sent successfully!
-              </div>
-          )}
-          {status === "error" && (
-              <div className="mt-4 p-4 bg-red-100 text-red-800 rounded-md">
-                An error occurred while sending your request. Please try again.
-              </div>
-          )}
-        </section>
-
-        <section className="max-w-5xl mx-auto mt-12 bg-white rounded-lg shadow-md p-6 text-center">
-          <h2 className="text-xl font-semibold text-green-700">PAYCHECKS AND PAYSTUBS</h2>
-          <p className="text-sm text-gray-600 mt-2">
-            HRDC provides a secure portal for employees to view paystubs and track payment history.
-          </p>
-          <h2 className="text-xl font-semibold text-green-700">
-            NOTICE: THIS FEATURE IS UNAVAILABLE UNTIL WE RECEIVE THE HRDC TIMESHEET FROM KRISTA
+        </div>
+      </div>
+      
+      {/* Paychecks and Paystubs Section - with gray background */}
+      <section className="w-full bg-gray-100 py-12">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-bold text-green-700 mb-4">
+            <span className="inline-block border-b-2 border-green-700 pb-1">PAYCHECKS AND PAYSTUBS</span>
           </h2>
-          <button className="bg-teal-700 text-white px-4 py-2 mt-4 rounded hover:bg-teal-600">
+          <p className="text-sm text-gray-600 mt-4 max-w-3xl mx-auto">
+            To ensure an added layer of security, the HRDC manages all paychecks and paystub details 
+            through a dedicated, secure portal specifically for this purpose. This keeps your 
+            personal information protected while allowing you easy access to your payroll records. Whether 
+            you need to review your latest payroll or track your payment history.
+          </p>
+          <button className="bg-teal-700 text-white px-8 py-2 mt-6 rounded hover:bg-teal-600">
             GO TO PORTAL
           </button>
-        </section>
+        </div>
+      </section>
+      
+      {/* Calendar Section - with white background */}
+      <section className="w-full bg-white py-12">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-green-700 text-center mb-8">
+            <span className="inline-block border-b-2 border-green-700 pb-1">HRDC EVENTS CALENDAR</span>
+          </h2>
+          
+          {/* Calendar Container - Fixed width to prevent horizontal compression */}
+          <div className="mx-auto" style={{ maxWidth: "800px" }}>
+            <iframe 
+              src="https://calendar.google.com/calendar/embed?src=c_7489498946eef211a15f7c5b8ee435d40fefb2b4008dc598c15186db60692295%40group.calendar.google.com&ctz=America%2FNew_York&showPrint=0&showCalendars=0&showTz=0" 
+              style={{ border: 'none', borderRadius: '8px' }}
+              width="800" 
+              height="600" 
+              frameBorder="0" 
+              scrolling="no"
+              className="shadow-md mx-auto"
+            ></iframe>
+          </div>
+        </div>
+      </section>
 
-        <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
-                style={{backgroundColor: "var(--secondary-blue)"}}>
-          <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
-        </footer>
-      </div>
+      <footer className="w-full bg-teal-700 text-white text-center py-4 mt-auto">
+        <p className="text-xs">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+      </footer>
+    </div>
   );
 }
-
