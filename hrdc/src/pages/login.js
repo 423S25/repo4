@@ -11,7 +11,6 @@ import {
 import { auth } from "../firebase-config";
 import { createUserProfile, getUserRole } from "./api/user-management";
 import Link from "next/link";
-import Image from "next/image";
 import Navbar from "../components/Navbar";
 
 export default function Login() {
@@ -71,20 +70,7 @@ export default function Login() {
     return (
         <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
             <Navbar/>
-            <header
-                className="w-full py-6 flex flex-col items-center"
-                style={{backgroundColor: "var(--primary)"}}
-            >
-                <Link href="/">
-                    <Image
-                        src="/logo.png"
-                        alt="HRDC Logo"
-                        width={100}
-                        height={50}
-                        priority
-                    />
-                </Link>
-            </header>
+            {/* Header with logo has been removed */}
 
             <div className="flex-grow flex items-center justify-center">
                 <div

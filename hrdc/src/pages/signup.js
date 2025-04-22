@@ -4,25 +4,8 @@ import { useRouter } from "next/router";
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from ".//../firebase-config"; // adjust the path if necessary
 import Link from "next/link";
-import Image from "next/image"; // Added import for Image
 import Navbar from "../components/Navbar";
 import { createUserProfile } from "./api/user-management"; // Add this import
-
-const handleSignUp = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-        setError("Passwords do not match");
-        return;
-    }
-    try {
-        const result = await createUserWithEmailAndPassword(auth, email, password);
-        // Add this line to create the user profile in Firestore
-        await createUserProfile(result.user);
-        // onAuthStateChanged will redirect on successful account creation
-    } catch (err) {
-        setError(err.message);
-    }
-};
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
@@ -48,7 +31,9 @@ export default function SignUp() {
             return;
         }
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            const result = await createUserWithEmailAndPassword(auth, email, password);
+            // Add this line to create the user profile in Firestore
+            await createUserProfile(result.user);
             // onAuthStateChanged will redirect on successful account creation
         } catch (err) {
             setError(err.message);
@@ -58,21 +43,7 @@ export default function SignUp() {
     return (
         <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
             <Navbar/>
-            {/* Added header from login.js */}
-            <header
-                className="w-full py-6 flex flex-col items-center"
-                style={{backgroundColor: "var(--primary)"}}
-            >
-                <Link href="/">
-                    <Image
-                        src="/logo.png"
-                        alt="HRDC Logo"
-                        width={100}
-                        height={50}
-                        priority
-                    />
-                </Link>
-            </header>
+            {/* Header with logo has been removed */}
 
             <div className="flex-grow flex items-center justify-center">
                 <div
