@@ -4,7 +4,15 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        {/* Add title and favicon */}
+        <title>HRDC Intranet Portal</title>
+        <link rel="shortcut icon" href="/tree-logo.png" />
+        <link rel="icon" type="image/png" href="/tree-logo.png" />
+        <link rel="apple-touch-icon" href="/tree-logo.png" />
+
+
         {/* Load jQuery first */}
+
         <script
           src="/assets/js/jquery.min.js"
           defer
