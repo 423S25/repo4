@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+advance-copilot-457622-a0-31d1498dcc6b.json
 
 # vercel
 .vercel
