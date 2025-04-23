@@ -6,6 +6,7 @@ import {auth, firestore} from "@/firebase-config";
 import {createUserProfile} from "@/pages/api/user-management";
 import {doc, getDoc} from "firebase/firestore";
 import {onAuthStateChanged} from "firebase/auth";
+import "react-quill/dist/quill.snow.css";
 
 export default function App({ Component, pageProps }) {
 

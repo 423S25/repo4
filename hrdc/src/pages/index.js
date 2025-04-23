@@ -22,7 +22,6 @@ import {
   Plus,
   Pin,
 } from "lucide-react";
-import "react-quill/dist/quill.snow.css";
 import { withRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
