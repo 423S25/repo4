@@ -22,7 +22,6 @@ import {
   Plus,
   Pin,
 } from "lucide-react";
-import { withRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -30,11 +29,11 @@ const quillModules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
     ["bold", "italic", "underline"],
+    [{ color: []}, { background: [] }], 
     [{ list: "ordered" }, { list: "bullet" }],
-    ["clean"],
   ],
 };
-const quillFormats = ["header", "bold", "italic", "underline", "list", "bullet"];
+const quillFormats = ["header", "bold", "italic", "underline", "list", "bullet", "color", "background"];
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -226,7 +225,7 @@ export default function Home() {
       )}
 
       {/* Posts List */}
-      <div className="w-4/5 mx-auto py-12 space-y-8">
+      <div className="w-4/5 mx-auto py-6 space-y-8">
         {posts.map((post) => {
           const isEditing = editingPost?.id === post.id;
           const isExpanded = expandedPostId === post.id;
@@ -267,9 +266,9 @@ export default function Home() {
                 </div>
 
                 {/* Centered Title */}
-                <h2 className="text-[32px] font-bold absolute left-1/2 transform -translate-x-1/2 pointer-events-none">
+                <h2 className="text-[24px] md:text-[32px] font-bold relative md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mb-2 md:mb-0 pointer-events-none">
                   {post.title}
-                </h2>
+                 </h2>
 
                 {/* Admin Icons */}
                 {isUserAdmin && (
@@ -498,10 +497,12 @@ export default function Home() {
                 ) : (
                   <>
                     {/* View Mode */}
-                    <div
-                      className="text-sm text-gray-700 whitespace-pre-line mb-4"
-                      dangerouslySetInnerHTML={{ __html: post.text }}
-                    />
+                    <div className="ql-snow mb-4">
+                      <div
+                        className="ql-editor text-sm text-gray-700"
+                        dangerouslySetInnerHTML={{ __html: post.text }}
+                      />
+                    </div>
                     {post.image && (
                       <img
                         src={post.image}
