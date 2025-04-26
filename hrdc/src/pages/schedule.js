@@ -73,8 +73,9 @@ export default function Schedule() {
         </div>
       </section>
 
-      <footer className="w-full bg-teal-700 text-white text-center py-4 mt-auto">
-        <p className="text-xs">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+      <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
+                    style= {{backgroundColor: "var(--secondary-blue)" }}>
+                <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
       </footer>
     </div>
   );
