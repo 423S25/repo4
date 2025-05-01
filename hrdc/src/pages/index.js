@@ -31,9 +31,10 @@ const quillModules = {
     ["bold", "italic", "underline"],
     [{ color: []}, { background: [] }], 
     [{ list: "ordered" }, { list: "bullet" }],
+    ['link'],
   ],
 };
-const quillFormats = ["header", "bold", "italic", "underline", "list", "bullet", "color", "background"];
+const quillFormats = ["header", "bold", "italic", "underline", "list", "bullet", "color", "background", "link"];
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -238,71 +239,84 @@ export default function Home() {
               key={post.id}
               className="bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden"
             >
+
               {/* Title Bar */}
-              <div className="bg-[var(--primary)] text-white px-6 py-4 flex items-center justify-between relative">
-                {/* Logo & Meta */}
-                <div className="flex items-center space-x-4">
-                  <div className="rounded-full overflow-hidden w-10 h-10">
-                    <Image
-                      src={
-                        isEditing
-                          ? newPost.logo || "/tree-logo.png"
-                          : post.logo || "/tree-logo.png"
-                      }
-                      alt="Logo"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className="leading-tight">
-                    <p className="font-bold text-sm">
-                      {post.authorName || "Author"}
-                    </p>
-                    <p className="text-xs">{post.position || "Position"}</p>
-                    <p className="text-xs text-white/70">
-                      {post.date || "Date"}
-                    </p>
+              <div className="bg-[var(--primary)] text-white px-6 pt-4 pb-2">
+                {/* Top Row: Logo + Meta + Buttons */}
+                <div className="flex flex-col items-center w-full">
+                  <div className="flex justify-between items-start w-full flex-wrap gap-4 mt-2">
+                    {/* Left: Logo + Meta */}
+                    <div className="flex items-center space-x-4 flex-shrink-0">
+                      <div className="rounded-full overflow-hidden w-10 h-10">
+                        <Image
+                          src={
+                            isEditing
+                              ? newPost.logo || "/tree-logo.png"
+                              : post.logo || "/tree-logo.png"
+                          }
+                          alt="Logo"
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                      <div className="leading-tight">
+                        <p className="font-bold text-sm">{post.authorName || "Author"}</p>
+                        <p className="text-xs">{post.position || "Position"}</p>
+                        <p className="text-xs text-white/70">{post.date || "Date"}</p>
+                      </div>
+                    </div>
+
+                    {/* Right: Admin Buttons or Public Pin Icon */}
+                    <div className="flex space-x-2 flex-shrink-0">
+                    {post.pinned && !isUserAdmin && (
+                        <div
+                          className="p-2 rounded-full bg-[var(--secondary-blue)] text-white flex items-center justify-center"
+                          title="Pinned Post"
+                        >
+                          <Pin size={18} />
+                        </div>
+                      )}
+
+                      {isUserAdmin && (
+                        <>
+                          <button
+                            onClick={() => handlePin(post)}
+                            title={post.pinned ? "Unpin" : "Pin to top"}
+                            className={`p-2 rounded-full transition text-white ${
+                              post.pinned
+                                ? "bg-[var(--secondary-blue)]"
+                                : "hover:bg-[var(--secondary-blue)]"
+                            }`}
+                          >
+                            <Pin size={18} />
+                          </button>
+                          <button
+                            onClick={() => startEdit(post)}
+                            className="p-2 rounded-full hover:bg-[var(--secondary-blue)] transition text-white"
+                            title="Edit"
+                          >
+                            <Edit2 size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(post.id)}
+                            className="p-2 rounded-full hover:bg-[var(--secondary-blue)] transition text-white"
+                            title="Delete"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                {/* Centered Title */}
-                <h2 className="text-[24px] md:text-[32px] font-bold relative md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mb-2 md:mb-0 pointer-events-none">
+                {/* Centered Title always in second row */}
+                <h2
+                  className="mt-1 mb-6 text-[32px] font-bold text-white text-center w-full"
+                  style={{ fontFamily: '"Gotham", Helvetica' }}
+                >
                   {post.title}
-                 </h2>
-
-                {/* Admin Icons */}
-                {isUserAdmin && (
-                  <div className="flex space-x-2 z-20">
-                    <button
-                      onClick={() => handlePin(post)}
-                      title={post.pinned ? "Unpin" : "Pin to top"}
-                      className={`
-                        p-2
-                        rounded-full
-                        transition
-                        text-white
-                        ${post.pinned ? "bg-[var(--secondary-blue)]" : "hover:bg-[var(--secondary-blue)]"}
-                      `}
-                    >
-                      <Pin size={18} />
-                    </button>
-
-                    <button
-                      onClick={() => startEdit(post)}
-                      className="p-2 rounded-full hover:bg-[var(--secondary-blue)] transition text-white"
-                      title="Edit"
-                    >
-                      <Edit2 size={18} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(post.id)}
-                      className="p-2 rounded-full hover:bg-[var(--secondary-blue)] transition text-white"
-                      title="Delete"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                )}
+                </h2>
               </div>
 
               {/* Content */}
@@ -542,8 +556,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer
-        className="w-full text-white text-center py-4 mt-auto"
-        style={{ backgroundColor: "var(--secondary-blue)" }}
+        className="w-full text-center py-4 mt-auto"
+        style={{ backgroundColor: "var(--secondary-blue)", color: "rgba(255, 255, 255, 0.8)"  }}
       >
         <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
       </footer>

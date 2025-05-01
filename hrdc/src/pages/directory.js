@@ -59,8 +59,8 @@ export default function Directory() {
             </section>
 
             {/* footer */}
-            <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
-                    style= {{backgroundColor: "var(--secondary-blue)" }}>
+            <footer className="w-full bg-gray-900 text-center py-4 mt-auto"
+                    style= {{backgroundColor: "var(--secondary-blue)", color: "rgba(255, 255, 255, 0.8)"  }}>
                 <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
             </footer>
         </div>
