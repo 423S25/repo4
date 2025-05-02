@@ -59,6 +59,13 @@ export default function Directory() {
                     >
                         DEV DOCUMENTATION
                     </button>
+                    <button
+                        className="w-[275px] h-[40px] py-2 px-4 text-white text-[16px] font-bold bg-[var(--primary)] hover:bg-[var(--secondary-blue)]"
+                        style={{ fontFamily: '"Gotham", Helvetica', wordSpacing: "0.2rem" }}
+                        onClick={() => window.open("https://www.youtube.com/watch?v=SocVs6axcjo&ab_channel=LoganSchuman", "_blank")}
+                    >
+                        INTRANET DEMO
+                    </button>
                 </div>
             </section>
 
