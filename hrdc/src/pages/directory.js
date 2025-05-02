@@ -45,6 +45,20 @@ export default function Directory() {
                     >
                         EMPLOYEE HANDBOOK
                     </button>
+                    <button
+                        className="w-[275px] h-[40px] py-2 px-4 text-white text-[16px] font-bold bg-[var(--primary)] hover:bg-[var(--secondary-blue)]"
+                        style={{ fontFamily: '"Gotham", Helvetica', wordSpacing: "0.2rem" }}
+                        onClick={() => handleOpenFile("/HRDC_user_documentation.pdf")}
+                    >
+                        USER DOCUMENTATION
+                    </button>
+                    <button
+                        className="w-[275px] h-[40px] py-2 px-4 text-white text-[16px] font-bold bg-[var(--primary)] hover:bg-[var(--secondary-blue)]"
+                        style={{ fontFamily: '"Gotham", Helvetica', wordSpacing: "0.2rem" }}
+                        onClick={() => handleOpenFile("/HRDC_DEV_documentation (1).pdf")}
+                    >
+                        DEV DOCUMENTATION
+                    </button>
                 </div>
             </section>
 

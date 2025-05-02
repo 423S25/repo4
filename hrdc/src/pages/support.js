@@ -96,8 +96,7 @@ export default function Support() {
               >
                 ISSUE
               </label>
-              <input
-                type="text"
+              <select
                 name="issue"
                 id="issue"
                 className="p-2 w-full text-black focus:outline-none border-b"
@@ -110,8 +109,16 @@ export default function Support() {
                   borderLeft: "none",
                   borderRight: "none",
                 }}
-              />
+              >
+                <option value="">Select an issue</option>
+                <option value="Document / link broken">Document / link broken</option>
+                <option value="Issues with an announcement">Issues with an announcement</option>
+                <option value="Missing file(s)">Missing file(s)</option>
+                <option value="Ideas for new content">Ideas for new content</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
+
 
             {/* EMAIL */}
             <div className="flex flex-col">
