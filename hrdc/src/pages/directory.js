@@ -55,7 +55,7 @@ export default function Directory() {
                     <button
                         className="w-[275px] h-[40px] py-2 px-4 text-white text-[16px] font-bold bg-[var(--primary)] hover:bg-[var(--secondary-blue)]"
                         style={{ fontFamily: '"Gotham", Helvetica', wordSpacing: "0.2rem" }}
-                        onClick={() => handleOpenFile("/HRDC_DEV_documentation (1).pdf")}
+                        onClick={() => handleOpenFile("/HRDC_DEV_documentation.pdf")}
                     >
                         DEV DOCUMENTATION
                     </button>
